@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Music Logic
     const musicBtn = document.getElementById('music-toggle');
     let isPlaying = false;
-    const audio = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'); 
+    const audio = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3'); 
     audio.loop = true;
 
     if (musicBtn) {
