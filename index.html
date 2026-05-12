@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lokesh & Kowsalya | Wedding Invitation</title>
+    <meta name="description" content="Official wedding invitation of Lokesh Ramanan K & Kowsalya J.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Great+Vibes&family=Outfit:wght@200;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="preloader" class="preloader">
+        <div class="loader-content">
+            <h1 class="loader-names">L & K</h1>
+            <div class="loader-bar"><div class="loader-progress"></div></div>
+        </div>
+    </div>
+
+    <!-- Music Toggle -->
+    <button id="music-toggle" class="music-toggle">
+        <span class="music-icon">🎵</span>
+    </button>
+
+    <main id="main">
+        <!-- Section 1: Hero -->
+        <section id="hero" class="hero-section">
+            <div class="hero-image-overlay">
+                <img src="WhatsApp Image 2026-05-12 at 8.10.35 PM.jpeg" alt="Lokesh & Kowsalya">
+            </div>
+            <div class="hero-content">
+                <span class="hero-intro">A Celebration of Love</span>
+                <h1 class="couple-names">Lokesh <span class="amp">&</span> Kowsalya</h1>
+                <p class="hero-date">28 MAY 2026</p>
+            </div>
+            <div class="scroll-prompt">
+                <div class="line"></div>
+            </div>
+        </section>
+
+        <!-- Section 2: The Invitation -->
+        <section id="invitation" class="invite-section">
+            <div class="container">
+                <h2 class="title-main gradient-gold-text">We Are Getting Married</h2>
+                <p class="invite-text">With the blessings of our families, we invite you to join us in celebrating our union of love and friendship.</p>
+                
+                <div class="timeline">
+                    <div class="event-box glass">
+                        <span class="event-label">Reception</span>
+                        <h3 class="event-date">Wednesday, 27th May 2026</h3>
+                        <p class="event-time">6:30 PM – 8:00 PM</p>
+                    </div>
+                    <div class="divider-gold"></div>
+                    <div class="event-box glass">
+                        <span class="event-label">Muhurtham</span>
+                        <h3 class="event-date">Thursday, 28th May 2026</h3>
+                        <p class="event-time">7:45 AM - 9:00 AM</p>
+                    </div>
+                </div>
+
+                <div id="countdown" class="minimal-timer">
+                    <div class="timer-unit">
+                        <span id="days">00</span>
+                        <label>Days</label>
+                    </div>
+                    <div class="timer-unit">
+                        <span id="hours">00</span>
+                        <label>Hours</label>
+                    </div>
+                    <div class="timer-unit">
+                        <span id="minutes">00</span>
+                        <label>Mins</label>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Venue -->
+        <section id="venue" class="venue-section">
+            <div class="container">
+                <h2 class="title-main gradient-gold-text">The Venue</h2>
+                <div class="venue-details">
+                    <h3>Vellu Mahal A/C</h3>
+                    <p class="invite-text">Trichy bypass, Dindigul</p>
+                    <div class="venue-links">
+                        <a href="https://www.google.com/maps/search/Vellu+Mahal+A%2FC,+Trichy+bypass,+Dindigul" target="_blank" class="btn-luxury">Get Directions</a>
+                        <button id="copy-address" class="btn-luxury-outline">Copy Address</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Ending -->
+        <section id="ending" class="ending-section">
+            <div class="container">
+                <div class="ending-content">
+                    <h2 class="thank-you">Bless Our Forever</h2>
+                    <div class="heart-wrapper">
+                        <svg class="heart-svg" viewBox="0 0 100 100">
+                            <path class="heart-path" d="M 50,85 C 50,85 15,65 15,35 C 15,15 40,15 50,35 C 60,15 85,15 85,35 C 85,65 50,85 50,85 Z" fill="none" stroke="url(#gold-grad)" stroke-width="2" />
+                            <defs>
+                                <linearGradient id="gold-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" style="stop-color:var(--gold-dark)" />
+                                    <stop offset="50%" style="stop-color:var(--gold-light)" />
+                                    <stop offset="100%" style="stop-color:var(--gold-dark)" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <div class="signature">Lokesh & Kowsalya</div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>Made with love for Lokesh & Kowsalya</p>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
