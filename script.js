@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Force scroll to top on refresh
+    window.scrollTo(0, 0);
+
     // Smooth Scroll (Lenis)
     const lenis = new Lenis({
         duration: 1.2,
@@ -14,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Register GSAP
     gsap.registerPlugin(ScrollTrigger);
 
-    // Preloader
+    // Preloader Logic
     const preloader = document.getElementById('preloader');
     const loaderProgress = document.querySelector('.loader-progress');
     
@@ -23,12 +26,13 @@ document.addEventListener('DOMContentLoaded', () => {
         duration: 2.5,
         ease: 'power4.inOut',
         onComplete: () => {
+            // Smoothly reveal the landing page
             gsap.to(preloader, {
                 opacity: 0,
-                scale: 1.1,
-                filter: 'blur(20px)',
-                duration: 1.5,
-                ease: 'power3.inOut',
+                scale: 1.05,
+                filter: 'blur(30px)',
+                duration: 1.8,
+                ease: 'expo.inOut',
                 onComplete: () => {
                     preloader.style.display = 'none';
                     startAnimations();
@@ -61,26 +65,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Cinematic Animations
     function startAnimations() {
-        // Hero Parallax & Reveal
-        gsap.from('.hero-image-overlay img', {
-            scale: 1.4,
-            filter: 'brightness(0) blur(20px)',
-            duration: 4,
-            ease: 'power4.out'
-        });
+        // Hero Reveal - Smooth Pan & Zoom
+        gsap.fromTo('.hero-image-overlay img', 
+            { scale: 1.3, filter: 'brightness(0) blur(20px)' },
+            { scale: 1, filter: 'brightness(0.6) blur(0px)', duration: 3.5, ease: 'expo.out' }
+        );
         
         gsap.from('.hero-content > *', {
-            y: 100,
+            y: 80,
             opacity: 0,
             filter: 'blur(10px)',
-            stagger: 0.2,
+            stagger: 0.15,
             duration: 2,
             ease: 'expo.out'
         });
 
         // Floating Motion for Hero
         gsap.to('.hero-content', {
-            y: -20,
+            y: -15,
             duration: 4,
             repeat: -1,
             yoyo: true,
@@ -96,12 +98,12 @@ document.addEventListener('DOMContentLoaded', () => {
             gsap.from(el, {
                 scrollTrigger: {
                     trigger: id,
-                    start: 'top 80%',
+                    start: 'top 85%',
                 },
-                y: 100,
+                y: 60,
                 opacity: 0,
                 duration: 1.5,
-                ease: 'power4.out'
+                ease: 'power3.out'
             });
         });
 
@@ -109,13 +111,13 @@ document.addEventListener('DOMContentLoaded', () => {
         gsap.from('.event-box', {
             scrollTrigger: {
                 trigger: '.timeline',
-                start: 'top 80%',
+                start: 'top 85%',
             },
-            y: 50,
+            y: 40,
             opacity: 0,
-            stagger: 0.3,
+            stagger: 0.2,
             duration: 1.5,
-            ease: 'power4.out'
+            ease: 'power3.out'
         });
         
         // Heart Pulse interaction
@@ -131,7 +133,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Music Logic
     const musicBtn = document.getElementById('music-toggle');
     let isPlaying = false;
-    // Updated to a high-quality All of Me Piano Cover style track
     const audio = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3'); 
     audio.loop = true;
 
