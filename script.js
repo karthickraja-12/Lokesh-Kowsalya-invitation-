@@ -20,19 +20,30 @@ document.addEventListener('DOMContentLoaded', () => {
     // Preloader Logic
     const preloader = document.getElementById('preloader');
     const loaderProgress = document.querySelector('.loader-progress');
+    const loaderNames = document.querySelector('.loader-names');
     
+    // Animate initials pulse once or twice
+    gsap.to(loaderNames, {
+        scale: 1.1,
+        opacity: 0.8,
+        duration: 0.8,
+        repeat: 1, // Total 2 pulses
+        yoyo: true,
+        ease: 'sine.inOut'
+    });
+
     gsap.to(loaderProgress, {
         width: '100%',
-        duration: 2.5,
-        ease: 'power4.inOut',
+        duration: 1.5, // Faster loading
+        ease: 'power2.inOut',
         onComplete: () => {
-            // Smoothly reveal the landing page
+            // Immediate, smooth burst into the invitation
             gsap.to(preloader, {
                 opacity: 0,
-                scale: 1.05,
-                filter: 'blur(30px)',
-                duration: 1.8,
-                ease: 'expo.inOut',
+                scale: 1.1,
+                filter: 'blur(20px)',
+                duration: 1,
+                ease: 'power4.out',
                 onComplete: () => {
                     preloader.style.display = 'none';
                     startAnimations();
@@ -65,24 +76,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Cinematic Animations
     function startAnimations() {
-        // Hero Reveal - Smooth Pan & Zoom
+        // Hero Reveal - Snappier & Smoother
         gsap.fromTo('.hero-image-overlay img', 
-            { scale: 1.3, filter: 'brightness(0) blur(20px)' },
-            { scale: 1, filter: 'brightness(0.6) blur(0px)', duration: 3.5, ease: 'expo.out' }
+            { scale: 1.2, filter: 'brightness(0) blur(10px)' },
+            { scale: 1, filter: 'brightness(0.6) blur(0px)', duration: 2.5, ease: 'power4.out' }
         );
         
         gsap.from('.hero-content > *', {
-            y: 80,
+            y: 50,
             opacity: 0,
-            filter: 'blur(10px)',
-            stagger: 0.15,
-            duration: 2,
-            ease: 'expo.out'
+            filter: 'blur(5px)',
+            stagger: 0.1,
+            duration: 1.5,
+            ease: 'power4.out'
         });
 
         // Floating Motion for Hero
         gsap.to('.hero-content', {
-            y: -15,
+            y: -10,
             duration: 4,
             repeat: -1,
             yoyo: true,
@@ -100,24 +111,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     trigger: id,
                     start: 'top 85%',
                 },
-                y: 60,
+                y: 40,
                 opacity: 0,
-                duration: 1.5,
-                ease: 'power3.out'
+                duration: 1.2,
+                ease: 'power2.out'
             });
-        });
-
-        // Timeline boxes stagger
-        gsap.from('.event-box', {
-            scrollTrigger: {
-                trigger: '.timeline',
-                start: 'top 85%',
-            },
-            y: 40,
-            opacity: 0,
-            stagger: 0.2,
-            duration: 1.5,
-            ease: 'power3.out'
         });
         
         // Heart Pulse interaction
