@@ -88,6 +88,27 @@ h1, h2, h3 {
     background: var(--gold-gradient);
 }
 
+.start-btn {
+    margin-top: 2rem;
+    background: var(--gold-gradient);
+    color: var(--bg-dark);
+    border: none;
+    padding: 1rem 3rem;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(197, 160, 89, 0.4);
+    transition: all 0.4s ease;
+}
+
+.start-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 40px rgba(197, 160, 89, 0.6);
+}
+
 /* Music Toggle */
 .music-toggle {
     position: fixed;
@@ -199,7 +220,18 @@ h1, h2, h3 {
     bottom: 4rem;
     left: 50%;
     transform: translateX(-50%);
-    opacity: 0.5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.scroll-text {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    opacity: 0.6;
+    color: var(--gold-light);
 }
 
 .scroll-prompt .line {
@@ -411,7 +443,16 @@ h1, h2, h3 {
     opacity: 0.2;
 }
 
-/* Toast */
+/* Cracker Animation */
+.cracker-particle {
+    position: fixed;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+}
+
 .toast {
     position: fixed;
     bottom: 3rem;

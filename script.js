@@ -14,27 +14,48 @@ document.addEventListener('DOMContentLoaded', () => {
     // Register GSAP
     gsap.registerPlugin(ScrollTrigger);
 
-    // Preloader
+    // Music Setup
+    const musicBtn = document.getElementById('music-toggle');
+    const startBtn = document.getElementById('start-btn');
+    let isPlaying = false;
+    const audio = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'); 
+    audio.loop = true;
+
+    // Preloader & Start Logic
     const preloader = document.getElementById('preloader');
     const loaderProgress = document.querySelector('.loader-progress');
     
     gsap.to(loaderProgress, {
         width: '100%',
-        duration: 2.5,
+        duration: 2,
         ease: 'power4.inOut',
         onComplete: () => {
-            gsap.to(preloader, {
-                opacity: 0,
-                scale: 1.1,
-                filter: 'blur(20px)',
-                duration: 1.5,
-                ease: 'power3.inOut',
-                onComplete: () => {
-                    preloader.style.display = 'none';
-                    startAnimations();
-                }
-            });
+            gsap.to(loaderProgress, { opacity: 0, duration: 0.5 });
+            startBtn.style.display = 'block';
+            gsap.from(startBtn, { y: 20, opacity: 0, duration: 0.8 });
         }
+    });
+
+    startBtn.addEventListener('click', () => {
+        // Play Music
+        audio.play().then(() => {
+            isPlaying = true;
+            if (musicBtn) musicBtn.querySelector('.music-icon').innerText = '🔊';
+        }).catch(err => console.log("Audio play failed:", err));
+
+        // Hide Preloader
+        gsap.to(preloader, {
+            opacity: 0,
+            scale: 1.1,
+            filter: 'blur(20px)',
+            duration: 1.5,
+            ease: 'power3.inOut',
+            onComplete: () => {
+                preloader.style.display = 'none';
+                startAnimations();
+                createCrackers();
+            }
+        });
     });
 
     // Countdown Timer
@@ -87,12 +108,11 @@ document.addEventListener('DOMContentLoaded', () => {
             ease: 'sine.inOut'
         });
 
-        // Section Reveals with ScrollTrigger
+        // Section Reveals
         const sections = ['#invitation', '#venue', '#ending'];
         sections.forEach(id => {
             const el = document.querySelector(id + ' .container');
             if (!el) return;
-
             gsap.from(el, {
                 scrollTrigger: {
                     trigger: id,
@@ -105,20 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // Timeline boxes stagger
-        gsap.from('.event-box', {
-            scrollTrigger: {
-                trigger: '.timeline',
-                start: 'top 80%',
-            },
-            y: 50,
-            opacity: 0,
-            stagger: 0.3,
-            duration: 1.5,
-            ease: 'power4.out'
-        });
-        
-        // Heart Pulse interaction
+        // Heart Pulse
         gsap.to('.heart-path', {
             opacity: 0.7,
             duration: 2,
@@ -128,12 +135,59 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Music Logic
-    const musicBtn = document.getElementById('music-toggle');
-    let isPlaying = false;
-    const audio = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'); 
-    audio.loop = true;
+    // Cracker Animation
+    function createCrackers() {
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'cracker-particle';
+            document.body.appendChild(particle);
 
+            const startX = window.innerWidth / 2;
+            const startY = window.innerHeight;
+            const color = `hsl(${Math.random() * 60 + 30}, 80%, 60%)`; // Goldish colors
+
+            gsap.set(particle, {
+                x: startX,
+                y: startY,
+                backgroundColor: color,
+                opacity: 1
+            });
+
+            gsap.to(particle, {
+                x: startX + (Math.random() - 0.5) * 400,
+                y: startY - (Math.random() * 600 + 200),
+                duration: Math.random() * 1.5 + 1,
+                ease: 'power2.out',
+                onComplete: () => {
+                    // Explosion
+                    for (let j = 0; j < 10; j++) {
+                        const subParticle = document.createElement('div');
+                        subParticle.className = 'cracker-particle';
+                        subParticle.style.width = '2px';
+                        subParticle.style.height = '2px';
+                        subParticle.style.backgroundColor = color;
+                        document.body.appendChild(subParticle);
+                        
+                        const currentX = gsap.getProperty(particle, "x");
+                        const currentY = gsap.getProperty(particle, "y");
+                        
+                        gsap.set(subParticle, { x: currentX, y: currentY });
+                        
+                        gsap.to(subParticle, {
+                            x: currentX + (Math.random() - 0.5) * 100,
+                            y: currentY + (Math.random() - 0.5) * 100,
+                            opacity: 0,
+                            duration: 1,
+                            onComplete: () => subParticle.remove()
+                        });
+                    }
+                    particle.remove();
+                }
+            });
+        }
+    }
+
+    // Music Toggle logic
     if (musicBtn) {
         musicBtn.addEventListener('click', () => {
             if (isPlaying) {
@@ -158,7 +212,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 toast.className = 'toast';
                 toast.innerText = 'Address Copied to Clipboard';
                 document.body.appendChild(toast);
-                
                 gsap.from(toast, { y: 20, opacity: 0, duration: 0.4 });
                 setTimeout(() => {
                     gsap.to(toast, { y: -20, opacity: 0, duration: 0.4, onComplete: () => toast.remove() });
