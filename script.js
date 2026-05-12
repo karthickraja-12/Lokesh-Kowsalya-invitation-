@@ -22,33 +22,52 @@ document.addEventListener('DOMContentLoaded', () => {
     const loaderProgress = document.querySelector('.loader-progress');
     const loaderNames = document.querySelector('.loader-names');
     
-    // Animate initials pulse once or twice
-    gsap.to(loaderNames, {
-        scale: 1.1,
-        opacity: 0.8,
-        duration: 0.8,
-        repeat: 1, // Total 2 pulses
+    // Animate initials pulse twice with extra softness
+    const pulseTimeline = gsap.timeline();
+    pulseTimeline.to(loaderNames, {
+        scale: 1.08,
+        opacity: 0.9,
+        duration: 1,
+        repeat: 1,
         yoyo: true,
-        ease: 'sine.inOut'
+        ease: 'power2.inOut'
     });
 
     gsap.to(loaderProgress, {
         width: '100%',
-        duration: 1.5, // Faster loading
+        duration: 2,
         ease: 'power2.inOut',
         onComplete: () => {
-            // Immediate, smooth burst into the invitation
-            gsap.to(preloader, {
-                opacity: 0,
-                scale: 1.1,
-                filter: 'blur(20px)',
-                duration: 1,
-                ease: 'power4.out',
+            // Smooth, cinematic transition sequence
+            const revealTl = gsap.timeline({
                 onComplete: () => {
                     preloader.style.display = 'none';
-                    startAnimations();
                 }
             });
+
+            revealTl.to(preloader, {
+                opacity: 0,
+                filter: 'blur(40px)',
+                duration: 2,
+                ease: 'expo.inOut'
+            }, 0);
+
+            revealTl.fromTo('.hero-image-overlay img', 
+                { scale: 1.15, filter: 'brightness(0) blur(10px)' },
+                { scale: 1, filter: 'brightness(0.6) blur(0px)', duration: 3, ease: 'expo.out' },
+                0.2
+            );
+
+            revealTl.from('.hero-content > *', {
+                y: 60,
+                opacity: 0,
+                filter: 'blur(10px)',
+                stagger: 0.2,
+                duration: 2.5,
+                ease: 'expo.out'
+            }, 0.5);
+
+            startAnimations();
         }
     });
 
@@ -74,33 +93,19 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    // Cinematic Animations
+    // Secondary Section Animations
     function startAnimations() {
-        // Hero Reveal - Snappier & Smoother
-        gsap.fromTo('.hero-image-overlay img', 
-            { scale: 1.2, filter: 'brightness(0) blur(10px)' },
-            { scale: 1, filter: 'brightness(0.6) blur(0px)', duration: 2.5, ease: 'power4.out' }
-        );
-        
-        gsap.from('.hero-content > *', {
-            y: 50,
-            opacity: 0,
-            filter: 'blur(5px)',
-            stagger: 0.1,
-            duration: 1.5,
-            ease: 'power4.out'
-        });
-
-        // Floating Motion for Hero
+        // Floating Motion for Hero (Already started in revealTl but this handles the loop)
         gsap.to('.hero-content', {
             y: -10,
             duration: 4,
             repeat: -1,
             yoyo: true,
-            ease: 'sine.inOut'
+            ease: 'sine.inOut',
+            delay: 3
         });
 
-        // Section Reveals with ScrollTrigger
+        // Section Reveals
         const sections = ['#invitation', '#venue', '#ending'];
         sections.forEach(id => {
             const el = document.querySelector(id + ' .container');
@@ -113,12 +118,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 y: 40,
                 opacity: 0,
-                duration: 1.2,
-                ease: 'power2.out'
+                duration: 1.5,
+                ease: 'power3.out'
             });
         });
         
-        // Heart Pulse interaction
+        // Heart Pulse
         gsap.to('.heart-path', {
             opacity: 0.7,
             duration: 2,
