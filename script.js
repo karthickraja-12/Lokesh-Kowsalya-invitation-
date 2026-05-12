@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Music Logic
     const musicBtn = document.getElementById('music-toggle');
     let isPlaying = false;
-    const audio = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3'); 
+    const audio = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3'); // All of Me Piano Cover Placeholder
     audio.loop = true;
 
     if (musicBtn) {
